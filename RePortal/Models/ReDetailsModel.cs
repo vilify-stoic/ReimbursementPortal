@@ -1,0 +1,65 @@
+﻿using Microsoft.AspNetCore.Http;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace RePortal.Models
+{
+    public class ReDetailsModel
+    {
+        [Key]
+        public int ReimburementId { get; set; }
+
+        [Required]
+        [DataType(DataType.Date)]
+        public DateTime Date { get; set; }
+
+        [Required]
+        [Column(TypeName = "varchar(25)")]
+        public string ReimburementType { get; set; }
+
+        [Required]
+        [Column(TypeName = "varchar(25)")]
+        [RegularExpression(@"^[0-9]*(.[0-9]{0,2})?$", ErrorMessage = "Enter Number Only")]
+        public string RequestedValue { get; set; }
+
+
+        [Required]
+        [Column(TypeName = "varchar(10)")]
+        public string Currency { get; set; }
+
+
+        //[Required]
+        [NotMapped]
+        public IFormFile Image { get; set; }
+
+        //[Required]
+        public string ImageUrl { get; set; }
+
+        [Column(TypeName = "varchar(25)")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "Invalid Email Address")]
+        public string RequestedBy { get; set; }
+
+        [Column(TypeName = "varchar(10)")]
+        public string ReceiptAttached { get; set; } = "No";
+
+        [Column(TypeName = "varchar(10)")]
+        public string ActiveStatus { get; set; } = "Pending";
+
+        [DataType(DataType.EmailAddress, ErrorMessage = "Invalid Email Address")]
+        [Column(TypeName = "varchar(35)")]
+        public string ApprovedBy { get; set; }
+
+        [Column(TypeName = "varchar(10)")]
+        [RegularExpression(@"^[0-9]*(.[0-9]{0,2})?$", ErrorMessage = "Enter Number Only")]
+        public string ApprovedAmount { get; set; }
+
+        [Column(TypeName = "varchar(100)")]
+        public string InternalNote { get; set; }
+
+    }
+}
